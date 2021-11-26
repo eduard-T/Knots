@@ -11,6 +11,7 @@ const IconButton = ({
   left,
   right,
   onClick,
+  isActive,
   style,
 }) => {
   return (
@@ -27,6 +28,8 @@ const IconButton = ({
           bottom: bottom || null,
           left: left || null,
           right: right || null,
+          boxSizing: "content-box",
+          borderBottom: `2px solid ${isActive ? "orangered" : "transparent"}`,
           ...style,
         }}
         src={source}

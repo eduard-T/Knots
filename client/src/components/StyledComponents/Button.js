@@ -13,11 +13,11 @@ const Button = ({
   return (
     <button
       style={{
-        backgroundColor: backgroundColor || "rgb(224, 101, 78)",
+        backgroundColor: backgroundColor || "orangered",
         border: "none",
         color: textColor || "white",
-        fontSize: "16px",
-        fontWeight: "500",
+        fontSize: "18px",
+        fontWeight: "600",
         padding: "10px",
         borderRadius: "2px",
         width: width,

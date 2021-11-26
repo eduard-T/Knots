@@ -1,52 +1,62 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 
 //components
 import IconButton from "../StyledComponents/IconButton";
 
-const Navigation = () => {
-  const handleOpen = () => {
-    document.getElementById("sidebar").style.width = "800px";
+//reducers
+import { logoutUser } from "../../features/user/userSlice";
+
+const Navigation = ({ handleChange, activeTab }) => {
+  const dispatch = useDispatch();
+
+  const handleLogout = () => {
+    dispatch(logoutUser());
   };
 
-  const iconSize = "25px";
+  const navButtons = [
+    {
+      source: "/assets/home.png",
+      alt: "Home icon",
+      handler: () => handleChange("home"),
+      active: activeTab === "home" ? true : false,
+    },
+    {
+      source: "/assets/history.png",
+      alt: "History icon",
+      handler: () => handleChange("completed"),
+      active: activeTab === "completed" ? true : false,
+    },
+    {
+      source: "/assets/user.png",
+      alt: "User icon",
+      handler: () => handleChange("profile"),
+      active: activeTab === "profile" ? true : false,
+    },
+    {
+      source: "/assets/logout.png",
+      alt: "Logout icon",
+      handler: handleLogout,
+      active: false,
+    },
+  ];
 
   return (
     <div className="navigation">
-      <IconButton
-        source="/assets/home.png"
-        alt="Home icon"
-        // onClick={handleOpen}
-        width={iconSize}
-        height={iconSize}
-        position="static"
-      />
-
-      <IconButton
-        source="/assets/history.png"
-        alt="History icon"
-        onClick={handleOpen}
-        width={iconSize}
-        height={iconSize}
-        position="static"
-      />
-
-      <IconButton
-        source="/assets/user.png"
-        alt="User icon"
-        // onClick={handleOpen}
-        width={iconSize}
-        height={iconSize}
-        position="static"
-      />
-
-      <IconButton
-        source="/assets/logout.png"
-        alt="Logout icon"
-        // onClick={handleOpen}
-        width={iconSize}
-        height={iconSize}
-        position="static"
-      />
+      {navButtons.map((button, index) => {
+        return (
+          <IconButton
+            key={index}
+            source={button.source}
+            alt={button.alt}
+            onClick={button.handler}
+            width="25px"
+            height="25px"
+            position="static"
+            isActive={button.active}
+          />
+        );
+      })}
     </div>
   );
 };
