@@ -3,7 +3,7 @@ const cors = require("cors");
 const bcrypt = require("bcrypt");
 const { body, validationResult } = require("express-validator");
 const pool = require("../db/connect");
-const { getToken } = require("../util");
+const { getToken, getAuthUser } = require("../util");
 
 const router = express.Router();
 
@@ -15,6 +15,15 @@ const userInfoValidation = (action) => {
       return [
         body("email", "Please enter your email").notEmpty(),
         body("password", "Please enter your password").notEmpty(),
+      ];
+    case "update":
+      return [
+        body("firstName", "Please enter a valid first name")
+          .notEmpty()
+          .isLength({ min: 2, max: 30 }),
+        body("lastName", "Please enter a valid last name")
+          .notEmpty()
+          .isLength({ min: 2, max: 30 }),
       ];
     case "register":
       return [
@@ -75,7 +84,7 @@ router.post(
       // insert the object into the users table
       const newUser = await pool
         .query(
-          "INSERT INTO users(firstName, lastName, email, passwordHash) VALUES ($1, $2, $3, $4) RETURNING firstName, lastName, email",
+          "INSERT INTO users(first_name, last_name, email, password_hash) VALUES ($1, $2, $3, $4) RETURNING id, first_name, last_name, email",
           [userInfo.firstName, userInfo.lastName, userInfo.email, pwHash]
         )
         .catch(() =>
@@ -137,5 +146,52 @@ router.post(
     }
   }
 );
+
+router.put(
+  "/update/info",
+  cors(),
+  userInfoValidation("update"),
+  getAuthUser,
+  async (request, response) => {
+    const authUser = request.user;
+    const { firstName, lastName } = request.body;
+    const errors = validationResult(request);
+
+    if (!errors.isEmpty()) {
+      return response.status(401).send(errors.mapped());
+    } else {
+      const updateUser = await pool
+        .query(
+          "UPDATE users SET first_name = $1, last_name = $2 WHERE id = $3 RETURNING first_name, last_name",
+          [firstName, lastName, authUser.id]
+        )
+        .catch(() => {
+          return response.status(401).send({
+            updateUserError: {
+              msg: "Failed to update the user information, please refresh your browser and try again",
+            },
+          });
+        });
+
+      return response.status(200).send(updateUser.rows[0]);
+    }
+  }
+);
+
+router.delete("/delete", cors(), getAuthUser, async (request, response) => {
+  const authUser = request.user;
+
+  await pool
+    .query("DELETE FROM users WHERE id = $1", [authUser.id])
+    .catch(() => {
+      return response.status(401).send({
+        deleteUserError: {
+          msg: "Failed to delete the user, please refresh your browser and try again",
+        },
+      });
+    });
+
+  response.status(200).end();
+});
 
 module.exports = router;

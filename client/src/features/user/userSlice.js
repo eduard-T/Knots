@@ -3,8 +3,6 @@ import axios from "axios";
 
 const currentUser = JSON.parse(localStorage.getItem("user_info"));
 
-console.log(`currentUser`, currentUser);
-
 const initialState = {
   activeUser: currentUser || null,
   registerState: {
@@ -17,6 +15,10 @@ const initialState = {
     error: null,
     currentReqID: undefined,
   },
+  userState: {
+    loading: "idle",
+    error: null,
+  },
 };
 
 export const registerUser = createAsyncThunk(
@@ -28,7 +30,6 @@ export const registerUser = createAsyncThunk(
 
     //call api
     try {
-      console.log("POST REQUEST");
       const response = await axios.post("/user/register", userInfo);
       localStorage.setItem("user_info", JSON.stringify(response.data));
       return response.data;
@@ -47,10 +48,49 @@ export const loginUser = createAsyncThunk(
 
     //call api
     try {
-      console.log("POST REQUEST");
       const response = await axios.post("/user/login", userInfo);
       localStorage.setItem("user_info", JSON.stringify(response.data));
       return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+
+export const updateUser = createAsyncThunk(
+  "user/update",
+  async (payload, { rejectWithValue }) => {
+    //call api
+    try {
+      const { token, firstName, lastName } = payload;
+      const response = await axios.put(
+        "/user/update/info",
+        { firstName, lastName },
+        {
+          headers: { Authorization: token },
+        }
+      );
+      let newInfo = { ...currentUser, ...response.data };
+
+      localStorage.setItem("user_info", JSON.stringify(newInfo));
+      return newInfo;
+    } catch (error) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+
+export const deleteUser = createAsyncThunk(
+  "user/delete",
+  async (payload, { rejectWithValue, dispatch }) => {
+    //call api
+    try {
+      const { token } = payload;
+      await axios.delete(`/user/delete`, {
+        headers: { Authorization: token },
+      });
+      dispatch(logoutUser());
+      return;
     } catch (error) {
       return rejectWithValue(error.response.data);
     }
@@ -97,7 +137,7 @@ const userSlice = createSlice({
         }
       })
 
-      //logon reducers
+      //login reducers
       .addCase(loginUser.pending, ({ loginState }, action) => {
         if (loginState.loading === "idle") {
           loginState.loading = "pending";
@@ -118,6 +158,40 @@ const userSlice = createSlice({
           loginState.loading = "idle";
           loginState.currentReqID = undefined;
           loginState.error = action.payload;
+        }
+      })
+
+      //updateUser reducers
+      .addCase(updateUser.pending, ({ userState }) => {
+        if (userState.loading === "idle") {
+          userState.loading = "pending";
+        }
+      })
+      .addCase(updateUser.fulfilled, (state, action) => {
+        const { userState } = state;
+        if (userState.loading === "pending") {
+          userState.loading = "idle";
+          userState.error = null;
+          state.activeUser = action.payload;
+        }
+      })
+      .addCase(updateUser.rejected, ({ userState }, action) => {
+        if (userState.loading === "pending") {
+          userState.loading = "idle";
+          userState.error = action.payload;
+        }
+      })
+
+      //deleteUser reducers
+      .addCase(deleteUser.pending, ({ userState }) => {
+        if (userState.loading === "idle") {
+          userState.loading = "pending";
+        }
+      })
+      .addCase(deleteUser.rejected, ({ userState }, action) => {
+        if (userState.loading === "pending") {
+          userState.loading = "idle";
+          userState.error = action.payload;
         }
       });
   },

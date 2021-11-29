@@ -27,6 +27,18 @@ const Register = () => {
     }
   }, [activeUser, navigate]);
 
+  useEffect(() => {
+    const listener = (event) => {
+      if (event.code === "Enter" || event.code === "NumpadEnter") {
+        handleRegister();
+      }
+    };
+    document.addEventListener("keydown", listener);
+    return () => {
+      document.removeEventListener("keydown", listener);
+    };
+  });
+
   const fields = [
     {
       type: "text",

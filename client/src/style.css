@@ -280,12 +280,101 @@ h1 {
   font-family: "Righteous", cursive;
 }
 
+.loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 70%;
+}
+
+.label {
+  display: block;
+  font-size: 14px;
+  color: grey;
+  margin-bottom: 4px;
+}
+
+.floatingMenu {
+  flex-direction: column;
+  position: absolute;
+  background-color: white;
+  border-radius: 5px;
+  padding: 10px;
+  right: 0;
+  top: 0;
+  z-index: 100;
+}
+
+.floatingMenu__item {
+  padding: 5px;
+  font-size: 18px;
+  color: grey;
+  transition: all 0.2s;
+}
+
+.floatingMenu__item:hover,
+.floatingMenu__item:active,
+.floatingMenu__item:focus-visible {
+  color: black;
+  text-decoration: underline 2px orangered;
+  cursor: pointer;
+}
+
 .highlight {
-  border-bottom: 2px solid orangered;
+  color: red;
+  font-weight: 600;
+}
+
+.modal {
+  background-color: rgba(0, 0, 0, 0.4);
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 100vh;
+  width: 100vw;
+  z-index: 100;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.modal__card {
+  width: 400px;
+  padding: 20px;
+  margin: 25px;
+}
+
+.modal__title {
+  font-size: 28px;
+  margin-bottom: 24px;
+}
+
+.modal__description {
+  font-size: 18px;
+  color: grey;
+}
+
+.modal__buttonContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-top: 20px;
+}
+
+.modal__timelineSelector,
+.modal__dateSelector {
+  width: 100%;
+  font-size: 16px;
+  padding: 10px 6px;
+  margin-top: 8px;
+  border-radius: 3px;
+  background-color: white;
+  border-style: none;
 }
 
 .textInput::placeholder {
-  font-size: clamp(12px, 2.5vw, 15px);
+  font-size: 16px;
 }
 
 .button,
@@ -347,11 +436,13 @@ h1 {
 .completed__title,
 .profile__title {
   font-size: 36px;
+  user-select: none;
 }
 
 .register__title,
 .login__title {
   font-size: 32px;
+  user-select: none;
 }
 
 .goals__subtitle,
@@ -360,6 +451,44 @@ h1 {
   font-size: 14px;
   font-weight: 500;
   color: orangered;
+  user-select: none;
+}
+
+.welcome {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+}
+
+.welcome__header {
+  display: flex;
+}
+
+.welcome__title,
+.welcome__filler,
+.welcome__description {
+  font-family: "Righteous", cursive;
+  font-size: clamp(28px, 5vw, 40px);
+}
+
+.welcome__filler {
+  color: orangered;
+  margin: 0 5px;
+  line-height: clamp(28px, 5vw, 40px);
+}
+
+.welcome__description {
+  color: grey;
+}
+
+.welcome__logoContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 60px;
 }
 
 /* ======================= Dashboard Styles ======================= */
@@ -369,7 +498,12 @@ h1 {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  padding: 25px;
+}
+
+.dashboard__card {
+  display: flex;
+  width: 80%;
+  margin: 100px;
 }
 
 .dashboard__nav {
@@ -379,12 +513,21 @@ h1 {
   padding: 15px;
 }
 
+.dashboard__emptyMsg {
+  font-size: 18px;
+  color: grey;
+  font-weight: 300;
+  font-style: italic;
+}
+
 .goals__header,
-.completed__header {
+.completed__header,
+.profile__header {
   padding-bottom: 30px;
 }
 
-.goals__header {
+.goals__header,
+.profile__header {
   display: flex;
   justify-content: space-between;
 }
@@ -428,11 +571,147 @@ h1 {
   margin-top: 10px;
 }
 
+.goalItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid lightgrey;
+  min-height: 60px;
+  position: relative;
+  font-size: 18px;
+  padding: 10px;
+  user-select: none;
+}
+
+.goalItem__timeline {
+  width: 150px;
+  text-align: center;
+  font-weight: 600;
+  color: white;
+  text-shadow: 0 0 2px #444;
+  padding: 10px 5px;
+  border-radius: 25px;
+}
+
+.profile__container {
+  display: flex;
+  justify-content: center;
+  margin: 50px 0;
+}
+
+.profile__tracker,
 .profile__details {
-  margin: 40px;
+  display: flex;
+  justify-content: center;
+  flex: 1;
+  word-break: keep-all;
+}
+
+.profile__details {
+  flex-direction: column;
+  margin: 25px 40px 0 60px;
+}
+
+.profile__tracker {
+  align-items: center;
+}
+
+.divider {
+  border: 1px solid lightgrey;
+}
+
+.tracker__activeGoals,
+.tracker__completedGoals {
+  text-align: center;
+  margin: 0 25px;
+  font-size: 20px;
+  color: grey;
+}
+
+.activeGoals__amount,
+.completedGoals__amount {
+  font-size: 40px;
+  color: orangered;
+  font-family: "Righteous", cursive;
 }
 
 .profile__text {
   font-size: 16px;
-  margin: 15px 0;
+  margin-bottom: 25px;
+}
+
+.profile__buttons {
+  display: flex;
+  flex-direction: column;
+}
+
+.profile__buttonContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  align-items: flex-start;
+}
+
+.profile__delete {
+  display: flex;
+}
+
+@media (max-width: 840px) {
+  .dashboard__card {
+    width: 100%;
+    height: auto;
+    margin: 25px;
+  }
+
+  .profile__container {
+    flex-direction: column;
+  }
+
+  .profile__tracker {
+    margin-bottom: 25px;
+  }
+
+  .profile__details {
+    flex-direction: column;
+    margin: 25px 15px;
+    word-break: break-word;
+  }
+}
+
+@media (max-width: 525px) {
+  .welcome__header {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .goalItem__timeline {
+    width: 20px;
+    font-size: 0;
+  }
+
+  .goals__header,
+  .profile__header {
+    flex-direction: column;
+  }
+
+  .goals__subtitle,
+  .profile__subtitle {
+    padding-bottom: 15px;
+  }
+
+  .tracker__activeGoals,
+  .tracker__completedGoals {
+    margin: 0 10px;
+    font-size: 16px;
+  }
+
+  .activeGoals__amount,
+  .completedGoals__amount {
+    font-size: 30px;
+  }
+
+  .profile__delete {
+    justify-content: center;
+  }
 }

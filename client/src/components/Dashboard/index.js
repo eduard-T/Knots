@@ -4,9 +4,9 @@ import { useNavigate } from "react-router-dom";
 
 //components
 import Card from "../StyledComponents/Card";
-import Goals from "./Goals";
-import Completed from "./Completed";
-import Profile from "./Profile";
+import Goals from "./Screens/Goals";
+import Completed from "./Screens/Completed";
+import Profile from "./Screens/Profile";
 import Navigation from "./Navigation";
 
 const Dashboard = () => {
@@ -28,18 +28,20 @@ const Dashboard = () => {
 
   return (
     <div className="dashboard">
-      <Card minHeight="550px" minWidth="80%" style={{ display: "flex" }}>
-        <nav className="dashboard__nav">
-          <Navigation handleChange={handleChange} activeTab={tab} />
-        </nav>
-        {tab === "home" ? (
-          <Goals />
-        ) : tab === "completed" ? (
-          <Completed />
-        ) : (
-          tab === "profile" && <Profile />
-        )}
-      </Card>
+      {activeUser && (
+        <Card className="dashboard__card" minHeight="550px">
+          <nav className="dashboard__nav">
+            <Navigation handleChange={handleChange} activeTab={tab} />
+          </nav>
+          {tab === "home" ? (
+            <Goals />
+          ) : tab === "completed" ? (
+            <Completed />
+          ) : (
+            tab === "profile" && <Profile activeUser={activeUser} />
+          )}
+        </Card>
+      )}
     </div>
   );
 };

@@ -2,10 +2,10 @@ import React from "react";
 import { useDispatch } from "react-redux";
 
 //components
-import IconButton from "../StyledComponents/IconButton";
+import IconButton from "../../StyledComponents/IconButton";
 
 //reducers
-import { logoutUser } from "../../features/user/userSlice";
+import { logoutUser } from "../../../features/user/userSlice";
 
 const Navigation = ({ handleChange, activeTab }) => {
   const dispatch = useDispatch();

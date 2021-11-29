@@ -5,10 +5,8 @@ const getToken = (userInfo) => {
 };
 
 const getAuthUser = (req, res, next) => {
-  const rawToken = req.headers.authorization;
-  console.log(`rawToken`, rawToken);
-  if (rawToken) {
-    const token = rawToken.slice(7, rawToken.length);
+  const token = req.headers.authorization;
+  if (token) {
     jwt.verify(token, process.env.TOKEN_SECRET, (err, decode) => {
       if (err) {
         return res.status(401).send({ authError: { msg: "Invalid token" } });

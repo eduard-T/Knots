@@ -8,9 +8,11 @@ CREATE TABLE users(
   password_hash VARCHAR(255) NOT NULL
 );
 
--- CREATE TABLE goals(
---   gid BIGSERIAL PRIMARY KEY,
---   type TEXT,
---   description TEXT,
---   completed BOOLEAN,
--- );
+CREATE TABLE goals(
+  gid BIGSERIAL PRIMARY KEY,
+  user_id BIGINT,
+  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+  timeline VARCHAR(10) NOT NULL,
+  description VARCHAR(50) NOT NULL,
+  completed BOOLEAN
+);

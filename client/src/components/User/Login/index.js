@@ -26,6 +26,18 @@ const Login = () => {
     }
   }, [activeUser, navigate]);
 
+  useEffect(() => {
+    const listener = (event) => {
+      if (event.code === "Enter" || event.code === "NumpadEnter") {
+        handleLogin();
+      }
+    };
+    document.addEventListener("keydown", listener);
+    return () => {
+      document.removeEventListener("keydown", listener);
+    };
+  });
+
   const handleLogin = () => {
     dispatch(loginUser({ email, password }));
   };

@@ -7,6 +7,7 @@ const Card = ({
   maxWidth,
   maxHeight,
   className,
+  removeShadow,
   style,
 }) => {
   return (
@@ -20,7 +21,9 @@ const Card = ({
         borderRadius: "5px",
         backgroundColor: "rgb(232, 232, 232)",
         wordBreak: "break-word",
-        boxShadow: "0px 30px 85px -40px rgba(0,0,0,0.75)",
+        boxShadow: removeShadow
+          ? "none"
+          : "0px 30px 85px -40px rgba(0,0,0,0.75)",
         ...style,
       }}
     >

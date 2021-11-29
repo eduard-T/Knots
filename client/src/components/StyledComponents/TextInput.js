@@ -2,6 +2,7 @@ import React from "react";
 
 const TextInput = ({
   onChange,
+  showLabel,
   placeholder,
   type,
   name,
@@ -14,7 +15,7 @@ const TextInput = ({
 }) => {
   return (
     <div style={{ width: width || "100%" }}>
-      <label className="srOnly" htmlFor={name}>
+      <label className={showLabel ? "label" : "srOnly"} htmlFor={name}>
         {placeholder}
       </label>
       <input
@@ -22,7 +23,7 @@ const TextInput = ({
         style={{
           width: "100%",
           padding: "10px",
-          fontSize: "15px",
+          fontSize: "16px",
           borderRadius: "3px",
           borderColor: "grey",
           borderStyle: borderType || "solid",
