@@ -1,9 +1,14 @@
 import React from "react";
 
+//components
+import IconButton from "./IconButton";
+
 const TextInput = ({
   onChange,
   showLabel,
   placeholder,
+  inputIcon,
+  onIconClick,
   type,
   name,
   value,
@@ -14,10 +19,21 @@ const TextInput = ({
   style,
 }) => {
   return (
-    <div style={{ width: width || "100%" }}>
+    <div style={{ width: width || "100%", position: "relative" }}>
       <label className={showLabel ? "label" : "srOnly"} htmlFor={name}>
         {placeholder}
       </label>
+      {inputIcon && (
+        <IconButton
+          source={inputIcon}
+          alt="Input icon"
+          onClick={onIconClick}
+          width="25px"
+          height="25px"
+          top="15px"
+          right="10px"
+        />
+      )}
       <input
         className="textInput"
         style={{
@@ -36,7 +52,7 @@ const TextInput = ({
         value={value}
         placeholder={placeholder}
         onChange={onChange}
-      />
+      ></input>
     </div>
   );
 };

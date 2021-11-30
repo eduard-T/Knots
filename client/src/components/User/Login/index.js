@@ -20,6 +20,7 @@ const Login = () => {
   //initialize states
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
   useEffect(() => {
     //if there is already an active user, navigate to the dashboard
@@ -86,12 +87,16 @@ const Login = () => {
           )}
           <TextInput
             style={{ margin: "8px 0" }}
-            type="password"
+            type={showPassword ? "text" : "password"}
             name="password"
             placeholder="Password"
             borderType="none"
             value={password}
             width={"100%"}
+            inputIcon={
+              showPassword ? "/assets/eye.png" : "/assets/closed-eye.png"
+            }
+            onIconClick={() => setShowPassword(!showPassword)}
             onChange={(event) => setPassword(event.target.value)}
           />
         </div>

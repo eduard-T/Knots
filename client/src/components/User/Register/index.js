@@ -22,6 +22,8 @@ const Register = () => {
 
   //initialize states
   const [userInfo, setUserInfo] = useState({});
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   useEffect(() => {
     //if there is already an active user, navigate to the dashboard
@@ -64,16 +66,22 @@ const Register = () => {
       placeHolder: "Email",
     },
     {
-      type: "password",
+      type: showPassword ? "text" : "password",
       name: "password",
       id: "password",
       placeHolder: "Password",
+      inputIcon: showPassword ? "/assets/eye.png" : "/assets/closed-eye.png",
+      onIconClick: () => setShowPassword(!showPassword),
     },
     {
-      type: "password",
+      type: showConfirmPassword ? "text" : "password",
       name: "confirm",
       id: "confirm",
       placeHolder: "Confirm Password",
+      inputIcon: showConfirmPassword
+        ? "/assets/eye.png"
+        : "/assets/closed-eye.png",
+      onIconClick: () => setShowConfirmPassword(!showConfirmPassword),
     },
   ];
 
@@ -125,6 +133,8 @@ const Register = () => {
                   placeholder={field.placeHolder}
                   borderType="none"
                   width={"100%"}
+                  inputIcon={field.inputIcon}
+                  onIconClick={field.onIconClick}
                   onChange={(event) =>
                     updateInput(event.target.id, event.target.value)
                   }
