@@ -39,6 +39,7 @@ const TextInput = ({
         style={{
           width: "100%",
           padding: "10px",
+          paddingRight: inputIcon ? "45px" : "10px",
           fontSize: "16px",
           borderRadius: "3px",
           borderColor: "grey",
@@ -52,7 +53,7 @@ const TextInput = ({
         value={value}
         placeholder={placeholder}
         onChange={onChange}
-      ></input>
+      />
     </div>
   );
 };

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 //redux
 import { useDispatch, useSelector } from "react-redux";
@@ -10,6 +10,7 @@ import EditModal from "./EditModal";
 
 const Goal = ({ goalID, description, timeline, completed }) => {
   const dispatch = useDispatch();
+  const itemRef = useRef(null);
 
   //store
   const { activeUser } = useSelector((state) => state.user);
@@ -47,10 +48,26 @@ const Goal = ({ goalID, description, timeline, completed }) => {
     }
   };
 
+  //click event listener
+  useEffect(() => {
+    document.addEventListener("click", handleClickOutside, false);
+    return () => {
+      document.removeEventListener("click", handleClickOutside, false);
+    };
+  }, []);
+
+  //hide the menu on any click outside of the element
+  const handleClickOutside = (event) => {
+    if (itemRef.current && !itemRef.current.contains(event.target)) {
+      setShowMenu(false);
+    }
+  };
+
   return (
     <>
       <li
         className="goalItem"
+        ref={itemRef}
         style={{ paddingLeft: completed ? "40px" : "0" }}
         onDoubleClick={() => handleAction("complete")}
       >

@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 
 //components
 import IconButton from "../../StyledComponents/IconButton";
+import Modal from "../../StyledComponents/Modal";
+import Button from "../../StyledComponents/Button";
 
 //redux
 import { useDispatch } from "react-redux";
@@ -9,6 +11,9 @@ import { logoutUser } from "../../../features/user/userSlice";
 
 const Navigation = ({ handleChange, activeTab }) => {
   const dispatch = useDispatch();
+
+  //initialize state
+  const [isVisible, setIsVisible] = useState(false);
 
   //handler to log the user out
   const handleLogout = () => {
@@ -38,7 +43,7 @@ const Navigation = ({ handleChange, activeTab }) => {
     {
       source: "/assets/logout.png",
       alt: "Logout icon",
-      handler: handleLogout,
+      handler: () => setIsVisible(true),
       active: false,
     },
   ];
@@ -59,6 +64,17 @@ const Navigation = ({ handleChange, activeTab }) => {
           />
         );
       })}
+      <Modal isVisible={isVisible}>
+        <h1 className="modal__title">Confirm Logout</h1>
+        <div className="modal__buttonContainer">
+          <Button
+            title="Logout"
+            backgroundColor="black"
+            onClick={handleLogout}
+          />
+          <Button title="Cancel" onClick={() => setIsVisible(false)} />
+        </div>
+      </Modal>
     </div>
   );
 };

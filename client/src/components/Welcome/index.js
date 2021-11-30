@@ -24,13 +24,13 @@ const Welcome = () => {
       <div className="welcome__logoContainer">
         <GridLoader
           size={20}
-          margin={width > 920 ? 50 : 25}
+          margin={width > 920 ? 50 : 10}
           speedMultiplier={0.3}
           color="orangered"
         />
         <GridLoader
           size={20}
-          margin={width > 920 ? 50 : 25}
+          margin={width > 920 ? 50 : 10}
           speedMultiplier={0.3}
         />
       </div>

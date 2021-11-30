@@ -111,6 +111,7 @@ const Login = () => {
             Register
           </Link>
         </p>
+        {/* <p className="login__link">Forgot Password</p> */}
       </Card>
     </div>
   );
