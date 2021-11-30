@@ -1,6 +1,5 @@
 const express = require("express");
 const cors = require("cors");
-const pool = require("./db/connect");
 const path = require("path");
 
 //routers
@@ -20,13 +19,14 @@ api.use(cors());
 api.use("/user", userRoutes);
 api.use("/goals", goalRoutes);
 
+//environment
 if (process.env.NODE_ENV === "production") {
-  api.use(express.static(path.join(__dirname, "../client/build")));
+  api.use(express.static(path.join(__dirname, "client/build")));
 }
 
 //catch all function to redirect to the homepage if the path does not exist
 api.get("*", cors(), (request, response) => {
-  response.sendFile(path.join(__dirname, "../client/build/index.html"));
+  response.sendFile(path.join(__dirname, "client/build/index.html"));
 });
 
 // listen for API at the given port
