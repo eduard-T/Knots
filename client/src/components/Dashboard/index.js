@@ -10,18 +10,22 @@ import Profile from "./Screens/Profile";
 import Navigation from "./Navigation";
 
 const Dashboard = () => {
-  const [tab, setTab] = useState("home");
   const navigate = useNavigate();
 
-  //user state
+  //store
   const { activeUser } = useSelector((state) => state.user);
 
+  //initialize states
+  const [tab, setTab] = useState("home");
+
   useEffect(() => {
+    //if there is no active user, navigate to the login page
     if (!activeUser) {
       navigate("/login");
     }
   }, [activeUser, navigate]);
 
+  //handler to switch between tabs
   const handleChange = (tab) => {
     setTab(tab);
   };

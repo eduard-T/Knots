@@ -12,30 +12,40 @@ import AddGoal from "../AddGoal";
 
 const Goals = () => {
   const dispatch = useDispatch();
-  const [activeList, setActiveList] = useState([]);
-  const [errorMsg, setErrorMsg] = useState(null);
 
+  //store
   const { activeUser } = useSelector((state) => state.user);
   const { goalsList, status, error } = useSelector((state) => state.goals);
 
+  //initialize states
+  const [activeList, setActiveList] = useState([]);
+  const [errorMsg, setErrorMsg] = useState(null);
+
   useEffect(() => {
+    //once the user is active, fetch the goals based on their token
     if (activeUser) {
       const { token } = activeUser;
       dispatch(getGoals(token));
     }
+
+    //log the user out if the token fails on any action
     if (error && !!error.authError) {
       dispatch(logoutUser());
     }
   }, [activeUser, error, dispatch]);
 
   useEffect(() => {
+    //initialize an empty array
     setActiveList([]);
+
+    //fill the array with active goals
     if (goalsList && !!goalsList.length) {
       setActiveList(goalsList.filter((goal) => goal.completed === false));
     }
   }, [goalsList]);
 
   useEffect(() => {
+    //set the error message based on the active error
     if (!!error && Object.values(error)[0].msg) {
       setErrorMsg(Object.values(error)[0].msg);
     }

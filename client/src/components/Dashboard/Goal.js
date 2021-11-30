@@ -11,16 +11,19 @@ import EditModal from "./EditModal";
 const Goal = ({ goalID, description, timeline, completed }) => {
   const dispatch = useDispatch();
 
+  //store
   const { activeUser } = useSelector((state) => state.user);
 
+  //initialize states
   const [showMenu, setShowMenu] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
 
+  //menu handler
   const handleMenu = () => {
     setShowMenu(true);
   };
 
-  // toggle function to open nd close the module
+  // toggle function to open and close the modal
   const toggleEdit = (state) => {
     if (state === "open") {
       setIsVisible(true);
@@ -31,6 +34,7 @@ const Goal = ({ goalID, description, timeline, completed }) => {
     }
   };
 
+  // handler for the menu actions
   const handleAction = (action) => {
     if (action === "complete" && !completed) {
       dispatch(

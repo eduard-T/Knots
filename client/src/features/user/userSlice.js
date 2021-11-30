@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
+//get current user information
 const currentUser = JSON.parse(localStorage.getItem("user_info"));
 
 const initialState = {
@@ -28,7 +29,6 @@ export const registerUser = createAsyncThunk(
 
     if (loading !== "pending" || requestId !== currentReqID) return;
 
-    //call api
     try {
       const response = await axios.post("/user/register", userInfo);
       localStorage.setItem("user_info", JSON.stringify(response.data));
@@ -46,7 +46,6 @@ export const loginUser = createAsyncThunk(
 
     if (loading !== "pending" || requestId !== currentReqID) return;
 
-    //call api
     try {
       const response = await axios.post("/user/login", userInfo);
       localStorage.setItem("user_info", JSON.stringify(response.data));
@@ -60,7 +59,6 @@ export const loginUser = createAsyncThunk(
 export const updateUser = createAsyncThunk(
   "user/update",
   async (payload, { rejectWithValue }) => {
-    //call api
     try {
       const { token, firstName, lastName } = payload;
       const response = await axios.put(
@@ -83,7 +81,6 @@ export const updateUser = createAsyncThunk(
 export const deleteUser = createAsyncThunk(
   "user/delete",
   async (payload, { rejectWithValue, dispatch }) => {
-    //call api
     try {
       const { token } = payload;
       await axios.delete(`/user/delete`, {

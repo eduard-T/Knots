@@ -14,19 +14,23 @@ import TextInput from "../../StyledComponents/TextInput";
 import Button from "../../StyledComponents/Button";
 
 const Register = () => {
-  const [userInfo, setUserInfo] = useState({});
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  //user state
+  //store
   const { activeUser, registerState } = useSelector((state) => state.user);
 
+  //initialize states
+  const [userInfo, setUserInfo] = useState({});
+
   useEffect(() => {
+    //if there is already an active user, navigate to the dashboard
     if (activeUser) {
       navigate("/dashboard");
     }
   }, [activeUser, navigate]);
 
+  //listen for an enter key press to register
   useEffect(() => {
     const listener = (event) => {
       if (event.code === "Enter" || event.code === "NumpadEnter") {
@@ -39,6 +43,7 @@ const Register = () => {
     };
   });
 
+  //array of input fields
   const fields = [
     {
       type: "text",
@@ -74,16 +79,17 @@ const Register = () => {
 
   // dynamically add key value pairs to the input object
   const updateInput = (key, value) => {
-    //include the generated id
     let tempInput = { ...userInfo };
     tempInput[key] = value;
     setUserInfo(tempInput);
   };
 
+  //registration handler
   const handleRegister = () => {
     dispatch(registerUser(userInfo));
   };
 
+  //handler to reset the registerState
   const handleStateReset = () => {
     dispatch(resetRegisterState());
   };

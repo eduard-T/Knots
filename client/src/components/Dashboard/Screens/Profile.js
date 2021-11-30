@@ -14,25 +14,32 @@ import useWindowDimensions from "../../../helpers/ScreenDimensions";
 
 const Profile = ({ activeUser }) => {
   const dispatch = useDispatch();
+
+  //get the width of the current window
   const { width } = useWindowDimensions();
 
+  //store
   const { userState } = useSelector((state) => state.user);
   const { goalsList } = useSelector((state) => state.goals);
 
+  //initialize states
   const [firstName, setFirstName] = useState(activeUser.first_name);
   const [lastName, setLastName] = useState(activeUser.last_name);
   const [isEditing, setIsEditing] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
 
+  //initialize goal amounts
   const [activeGoals, setActiveGoals] = useState(0);
   const [completedGoals, setCompletedGoals] = useState(0);
 
+  //exit editing state when the action changes the loading state to "pending"
   useEffect(() => {
     if (userState.loading === "pending") {
       setIsEditing(false);
     }
-  }, [userState.loading]);
+  }, [userState]);
 
+  //set the goal amounts from the user's goal list
   useEffect(() => {
     if (goalsList && !!goalsList.length) {
       setActiveGoals(
@@ -44,10 +51,12 @@ const Profile = ({ activeUser }) => {
     }
   }, [goalsList]);
 
+  //toggle function for the editing state
   const toggleEdit = () => {
     setIsEditing(!isEditing);
   };
 
+  //handler to dispatch the action to update the user
   const handleSave = () => {
     dispatch(
       updateUser({
@@ -58,6 +67,7 @@ const Profile = ({ activeUser }) => {
     );
   };
 
+  //handler to delete the user's account
   const handleDelete = () => {
     dispatch(deleteUser({ token: activeUser.token }));
   };

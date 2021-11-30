@@ -11,21 +11,24 @@ import TextInput from "../../StyledComponents/TextInput";
 import Button from "../../StyledComponents/Button";
 
 const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  //user state
+  //store
   const { activeUser, loginState } = useSelector((state) => state.user);
 
+  //initialize states
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
   useEffect(() => {
+    //if there is already an active user, navigate to the dashboard
     if (activeUser) {
       navigate("/dashboard");
     }
   }, [activeUser, navigate]);
 
+  //listen for an enter key press to login
   useEffect(() => {
     const listener = (event) => {
       if (event.code === "Enter" || event.code === "NumpadEnter") {
@@ -38,10 +41,12 @@ const Login = () => {
     };
   });
 
+  //login handler
   const handleLogin = () => {
     dispatch(loginUser({ email, password }));
   };
 
+  //handler to reset the loginState
   const handleStateReset = () => {
     dispatch(resetLoginState());
   };

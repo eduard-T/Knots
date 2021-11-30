@@ -1,28 +1,29 @@
-# Goal Tracker App
+# Knots - Goal Management
 
-A simple app that allows users to register for an account and sign in to view or add goals to their dashboard.
+A simple app that allows users to track and manage their goals. Once registered, a user can create, modify, and delete goals tied to their account. User information can be modified through a profile screen and the account can also be deleted.
 
 ## Table of Contents
 
 - [Technologies Used](#technologies-used)
 - [Features](#features)
 - [Setup](#setup)
+- [Upcoming Features](#upcoming-features)
 - [Contact](#contact)
 
 ## Technologies Used
 
 Goal Tracker was built using React JS and [Node v14.18.1] and uses the following technologies:
 
-- Axios - v0.23.0
 - Express - v4.17.1
 - npm - v8.1.0
 
 ## Features
 
-<!-- - New orders can be created with the description, cost, and revenue
-- New drivers can be created with a first and last name
-- Existing orders can be deleted
-- Fully responsive and clean UI design -->
+- Fully responsive and minimalist UI design
+- Users can register and have their sensitive information encrypted
+- Goals can be created, modified, and deleted
+- Users can track their total goals on a profile tab, where they can also edit their information
+- When a user deleted their account, all goals tied to their account are also destroyed
 
 ## Setup
 
@@ -39,8 +40,8 @@ $ npm install -g npm
 3. Clone this repository and navigate into it
 
 ```
-$ git clone https://github.com/Shmedi/Driver-Manager.git
-$ git cd Driver-Manager
+$ git clone https://github.com/Shmedi/Goal-Tracker.git
+$ git cd Goal-Tracker
 ```
 
 4. Install the project's dependencies
@@ -58,13 +59,13 @@ $ npm run dev
 6. You should see the following after `npm start`
 
 ```
-API running at PORT: 3001
+API running at PORT: 4000
 ```
 
 7. Open a separate window in your terminal and navigate to the client
 
 ```
-$ cd Driver-Manager/client
+$ cd Goal-Tracker/client
 ```
 
 8. Install the dependencies
@@ -79,11 +80,12 @@ $ npm install
 $ npm start
 ```
 
-You're ready to use the app! :alien:
+You're ready to start managing your goals! :hushed::ok_hand:
 
-## Known Issues
+## Upcoming Features
 
-<!-- - Order is lost if it is dropped outside of unassigned orders or a driver card, this order is still present in the database, and returns to the card it was pulled from on refresh -->
+- Email & password modification :pencil:
+- Password reset :lock:
 
 ## Contact
 

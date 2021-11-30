@@ -10,6 +10,8 @@ import useWindowDimensions from "../../helpers/ScreenDimensions";
 
 const Welcome = () => {
   const navigate = useNavigate();
+
+  //get the width of the current window
   const { width } = useWindowDimensions();
 
   return (

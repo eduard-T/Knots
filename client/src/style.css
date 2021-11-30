@@ -294,83 +294,9 @@ h1 {
   margin-bottom: 4px;
 }
 
-.floatingMenu {
-  flex-direction: column;
-  position: absolute;
-  background-color: white;
-  border-radius: 5px;
-  padding: 10px;
-  right: 0;
-  top: 0;
-  z-index: 100;
-}
-
-.floatingMenu__item {
-  padding: 5px;
-  font-size: 18px;
-  color: grey;
-  transition: all 0.2s;
-}
-
-.floatingMenu__item:hover,
-.floatingMenu__item:active,
-.floatingMenu__item:focus-visible {
-  color: black;
-  text-decoration: underline 2px orangered;
-  cursor: pointer;
-}
-
 .highlight {
   color: red;
   font-weight: 600;
-}
-
-.modal {
-  background-color: rgba(0, 0, 0, 0.4);
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  height: 100vh;
-  width: 100vw;
-  z-index: 100;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-}
-
-.modal__card {
-  width: 400px;
-  padding: 20px;
-  margin: 25px;
-}
-
-.modal__title {
-  font-size: 28px;
-  margin-bottom: 24px;
-}
-
-.modal__description {
-  font-size: 18px;
-  color: grey;
-}
-
-.modal__buttonContainer {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 8px;
-  margin-top: 20px;
-}
-
-.modal__timelineSelector,
-.modal__dateSelector {
-  width: 100%;
-  font-size: 16px;
-  padding: 10px 6px;
-  margin-top: 8px;
-  border-radius: 3px;
-  background-color: white;
-  border-style: none;
 }
 
 .textInput::placeholder {
@@ -423,36 +349,83 @@ h1 {
   text-align: right;
 }
 
-.completeIcon {
-  width: 30px;
-  height: 30px;
-  align-self: center;
+.floatingMenu {
+  flex-direction: column;
   position: absolute;
-  left: 0;
-  opacity: 0.3;
+  background-color: white;
+  border-radius: 5px;
+  padding: 10px;
+  right: 0;
+  top: 0;
+  z-index: 100;
 }
 
-.goals__title,
-.completed__title,
-.profile__title {
-  font-size: 36px;
-  user-select: none;
+.floatingMenu__item {
+  padding: 5px;
+  font-size: 18px;
+  color: grey;
+  transition: all 0.2s;
 }
 
-.register__title,
-.login__title {
-  font-size: 32px;
-  user-select: none;
+.floatingMenu__item:hover,
+.floatingMenu__item:active,
+.floatingMenu__item:focus-visible {
+  color: black;
+  text-decoration: underline 2px orangered;
+  cursor: pointer;
 }
 
-.goals__subtitle,
-.completed__subtitle,
-.profile__subtitle {
-  font-size: 14px;
-  font-weight: 500;
-  color: orangered;
-  user-select: none;
+/* ======================= Modal Styles ======================= */
+
+.modal {
+  background-color: rgba(0, 0, 0, 0.4);
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 100vh;
+  width: 100vw;
+  z-index: 100;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
 }
+
+.modal__card {
+  width: 400px;
+  padding: 20px;
+  margin: 25px;
+}
+
+.modal__title {
+  font-size: 28px;
+  margin-bottom: 24px;
+}
+
+.modal__description {
+  font-size: 18px;
+  color: grey;
+}
+
+.modal__buttonContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-top: 20px;
+}
+
+.modal__timelineSelector,
+.modal__dateSelector {
+  width: 100%;
+  font-size: 16px;
+  padding: 10px 6px;
+  margin-top: 8px;
+  border-radius: 3px;
+  background-color: white;
+  border-style: none;
+}
+
+/* ======================= Welcome Page Styles ======================= */
 
 .welcome {
   min-height: 100vh;
@@ -491,62 +464,12 @@ h1 {
   margin: 60px;
 }
 
-/* ======================= Dashboard Styles ======================= */
+/* ======================= Registration/Login Styles ======================= */
 
-.dashboard {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-}
-
-.dashboard__card {
-  display: flex;
-  width: 80%;
-  margin: 100px;
-}
-
-.dashboard__nav {
-  display: flex;
-  background-color: rgb(225, 225, 225);
-  border-radius: 5px 0 0 5px;
-  padding: 15px;
-}
-
-.dashboard__emptyMsg {
-  font-size: 18px;
-  color: grey;
-  font-weight: 300;
-  font-style: italic;
-}
-
-.goals__header,
-.completed__header,
-.profile__header {
-  padding-bottom: 30px;
-}
-
-.goals__header,
-.profile__header {
-  display: flex;
-  justify-content: space-between;
-}
-
-.dashboard__goals,
-.dashboard__completed,
-.dashboard__profile {
-  border-radius: 0 5px 5px 0;
-  padding: 15px;
-  flex: 1;
-}
-
-.navigation {
-  display: flex;
-  flex-direction: column;
-}
-
-.navigation .iconButton {
-  margin-bottom: 30px;
+.register__title,
+.login__title {
+  font-size: 32px;
+  user-select: none;
 }
 
 .register__card,
@@ -571,6 +494,80 @@ h1 {
   margin-top: 10px;
 }
 
+/* ======================= Dashboard Styles ======================= */
+
+.dashboard {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.dashboard__card {
+  display: flex;
+  width: 80%;
+  margin: 100px;
+}
+
+.dashboard__nav {
+  display: flex;
+  background-color: rgb(225, 225, 225);
+  border-radius: 5px 0 0 5px;
+  padding: 15px;
+}
+
+.navigation {
+  display: flex;
+  flex-direction: column;
+}
+
+.navigation .iconButton {
+  margin-bottom: 30px;
+}
+
+.dashboard__emptyMsg {
+  font-size: 18px;
+  color: grey;
+  font-weight: 300;
+  font-style: italic;
+}
+
+.dashboard__goals,
+.dashboard__completed,
+.dashboard__profile {
+  border-radius: 0 5px 5px 0;
+  padding: 15px;
+  flex: 1;
+}
+
+.goals__header,
+.completed__header,
+.profile__header {
+  padding-bottom: 30px;
+}
+
+.goals__header,
+.profile__header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.goals__title,
+.completed__title,
+.profile__title {
+  font-size: 36px;
+  user-select: none;
+}
+
+.goals__subtitle,
+.completed__subtitle,
+.profile__subtitle {
+  font-size: 14px;
+  font-weight: 500;
+  color: orangered;
+  user-select: none;
+}
+
 .goalItem {
   display: flex;
   justify-content: space-between;
@@ -591,6 +588,15 @@ h1 {
   text-shadow: 0 0 2px #444;
   padding: 10px 5px;
   border-radius: 25px;
+}
+
+.completeIcon {
+  width: 30px;
+  height: 30px;
+  align-self: center;
+  position: absolute;
+  left: 0;
+  opacity: 0.3;
 }
 
 .profile__container {
@@ -652,9 +658,7 @@ h1 {
   align-items: flex-start;
 }
 
-.profile__delete {
-  display: flex;
-}
+/* ======================= Media Queries ======================= */
 
 @media (max-width: 840px) {
   .dashboard__card {
@@ -709,9 +713,5 @@ h1 {
   .activeGoals__amount,
   .completedGoals__amount {
     font-size: 30px;
-  }
-
-  .profile__delete {
-    justify-content: center;
   }
 }

@@ -4,7 +4,6 @@ import axios from "axios";
 export const getGoals = createAsyncThunk(
   "goals/get",
   async (token, { rejectWithValue }) => {
-    //call api
     try {
       const response = await axios.get("/goals", {
         headers: { Authorization: token },
@@ -19,7 +18,6 @@ export const getGoals = createAsyncThunk(
 export const createGoal = createAsyncThunk(
   "goals/create",
   async (payload, { rejectWithValue, dispatch }) => {
-    //call api
     try {
       const { token, description, timeline } = payload;
       await axios.post(
@@ -40,7 +38,6 @@ export const createGoal = createAsyncThunk(
 export const updateGoal = createAsyncThunk(
   "goals/update",
   async (payload, { rejectWithValue, dispatch }) => {
-    //call api
     try {
       const { token, goalID, description, timeline } = payload;
       await axios.put(
@@ -61,7 +58,6 @@ export const updateGoal = createAsyncThunk(
 export const completeGoal = createAsyncThunk(
   "goals/complete",
   async (payload, { rejectWithValue, dispatch }) => {
-    //call api
     try {
       const { token, goalID, completed } = payload;
       await axios.put(
@@ -82,7 +78,6 @@ export const completeGoal = createAsyncThunk(
 export const deleteGoal = createAsyncThunk(
   "goals/delete",
   async (payload, { rejectWithValue, dispatch }) => {
-    //call api
     try {
       const { token, goalID } = payload;
       await axios.delete(`/goals/delete/${goalID}`, {
@@ -114,6 +109,7 @@ const goalsSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
+      //query reducers
       .addCase(getGoals.pending, (state) => {
         if (state.status === "idle") {
           state.status = "pending";
@@ -132,6 +128,7 @@ const goalsSlice = createSlice({
         }
       })
 
+      //creation reducers
       .addCase(createGoal.pending, (state) => {
         if (state.status === "idle") {
           state.status = "pending";
@@ -144,6 +141,7 @@ const goalsSlice = createSlice({
         }
       })
 
+      //update reducers
       .addCase(updateGoal.pending, (state) => {
         if (state.status === "idle") {
           state.status = "pending";
@@ -156,6 +154,7 @@ const goalsSlice = createSlice({
         }
       })
 
+      //completion reducers
       .addCase(completeGoal.pending, (state) => {
         if (state.status === "idle") {
           state.status = "pending";
@@ -168,6 +167,7 @@ const goalsSlice = createSlice({
         }
       })
 
+      //deletion reducers
       .addCase(deleteGoal.pending, (state) => {
         if (state.status === "idle") {
           state.status = "pending";

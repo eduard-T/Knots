@@ -12,18 +12,21 @@ import TextInput from "../../StyledComponents/TextInput";
 const AddModal = ({ toggleAdd, isVisible }) => {
   const dispatch = useDispatch();
 
+  //store
   const { activeUser } = useSelector((state) => state.user);
   const { status } = useSelector((state) => state.goals);
 
+  //initialize states
   const [showInput, setShowInput] = useState(false);
   const [error, setError] = useState(false);
-
   const [description, setDescription] = useState("");
   const [goalTimeline, setGoalTimeline] = useState("");
   const [goalDate, setGoalDate] = useState("");
 
+  //save the current date to a variable
   const currentDate = new Date().toISOString().substring(0, 10);
 
+  //function to clear and close modal
   const clear = useCallback(() => {
     toggleAdd("close");
     setError(false);
@@ -33,7 +36,9 @@ const AddModal = ({ toggleAdd, isVisible }) => {
     setShowInput(false);
   }, [toggleAdd]);
 
+  //option selection handler
   const handleOption = (option) => {
+    //if the option is to select a date, show the date input
     if (option === "setDate") {
       setShowInput(true);
       setGoalTimeline(undefined);
@@ -43,6 +48,7 @@ const AddModal = ({ toggleAdd, isVisible }) => {
     }
   };
 
+  //handler to dispatch the action based on the data and create a goal
   const handleCreate = () => {
     if (!description && (!goalTimeline || !goalDate)) {
       setError(true);
@@ -66,6 +72,7 @@ const AddModal = ({ toggleAdd, isVisible }) => {
     }
   };
 
+  //clear the modal when the action changes the status to "pending"
   useEffect(() => {
     if (status === "pending") {
       clear();

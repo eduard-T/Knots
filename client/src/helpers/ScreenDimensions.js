@@ -24,3 +24,5 @@ export default function useWindowDimensions() {
 
   return windowDimensions;
 }
+
+// This function dynamically gets the dimensions of the current screen

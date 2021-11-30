@@ -8,10 +8,13 @@ import AddModal from "./AddModal";
 import useWindowDimensions from "../../../helpers/ScreenDimensions";
 
 const AddGoal = () => {
+  //initialize state
   const [isVisible, setIsVisible] = useState(false);
+
+  //get the width of the current window
   const { width } = useWindowDimensions();
 
-  // toggle function to open nd close the module
+  // toggle function to open and close the modal
   const toggleAdd = (state) => {
     if (state === "open") {
       setIsVisible(true);

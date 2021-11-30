@@ -1,19 +1,21 @@
 import React from "react";
-import { useDispatch } from "react-redux";
 
 //components
 import IconButton from "../../StyledComponents/IconButton";
 
-//reducers
+//redux
+import { useDispatch } from "react-redux";
 import { logoutUser } from "../../../features/user/userSlice";
 
 const Navigation = ({ handleChange, activeTab }) => {
   const dispatch = useDispatch();
 
+  //handler to log the user out
   const handleLogout = () => {
     dispatch(logoutUser());
   };
 
+  //array of navigation buttons
   const navButtons = [
     {
       source: "/assets/home.png",
