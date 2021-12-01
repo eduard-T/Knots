@@ -438,30 +438,25 @@ h1 {
 
 .welcome__header {
   display: flex;
+  margin-bottom: 60px;
 }
 
 .welcome__title,
 .welcome__filler,
 .welcome__description {
   font-family: "Righteous", cursive;
-  font-size: clamp(28px, 5vw, 40px);
+  font-size: clamp(32px, 5vw, 40px);
+  text-align: center;
 }
 
 .welcome__filler {
   color: orangered;
-  margin: 0 5px;
+  margin: 0 5px 10px;
   line-height: clamp(28px, 5vw, 40px);
 }
 
 .welcome__description {
   color: grey;
-}
-
-.welcome__logoContainer {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  margin: 60px;
 }
 
 /* ======================= Registration/Login Styles ======================= */
@@ -682,11 +677,15 @@ h1 {
   }
 }
 
-@media (max-width: 525px) {
+@media (max-width: 540px) {
   .welcome__header {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+  }
+
+  .welcome__title {
+    font-size: 40px;
   }
 
   .goalItem__timeline {
