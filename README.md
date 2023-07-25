@@ -89,4 +89,4 @@ You're ready to start managing your goals! :hushed::ok_hand:
 
 ## Contact
 
-Created by [@Shmedi](https://eduardtupy.co/) - Visit my portfolio!
+Created by [@eduard-T](https://eduardtupy.co/) - Visit my portfolio!
