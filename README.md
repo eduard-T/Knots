@@ -1,6 +1,6 @@
 # Knots - Goal Tracker
 
-A minimal app that allows users to track and manage their goals. Once registered, a user can create, modify, and delete goals tied to their account. User information can be modified through a profile screen and the account can also be deleted.
+A simple app that allows users to track and manage their goals. Once registered, a user can create, modify, and delete goals tied to their account. User information can be modified through a profile screen and the account can also be deleted.
 
 ## Table of Contents
 
