@@ -83,6 +83,8 @@ $ npm start
 
 You're ready to start managing your goals! :hushed::ok_hand:
 
+> Please note that you will need a local PostgreSQL database for the API to write to
+
 ## Upcoming Features
 
 - Email & password modification :pencil:
