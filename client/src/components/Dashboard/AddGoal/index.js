@@ -1,29 +1,29 @@
-import React, { useState } from "react";
+import React, { useState } from "react"
 
 //components
-import Button from "../../StyledComponents/Button";
-import AddModal from "./AddModal";
+import Button from "../../StyledComponents/Button"
+import AddModal from "./AddModal"
 
 //helpers
-import useWindowDimensions from "../../../helpers/ScreenDimensions";
+import useWindowDimensions from "../../../helpers/ScreenDimensions"
 
 const AddGoal = () => {
   //initialize state
-  const [isVisible, setIsVisible] = useState(false);
+  const [isVisible, setIsVisible] = useState(false)
 
   //get the width of the current window
-  const { width } = useWindowDimensions();
+  const { width } = useWindowDimensions()
 
   // toggle function to open and close the modal
   const toggleAdd = (state) => {
     if (state === "open") {
-      setIsVisible(true);
+      setIsVisible(true)
     }
 
     if (state === "close") {
-      setIsVisible(false);
+      setIsVisible(false)
     }
-  };
+  }
 
   return (
     <>
@@ -35,7 +35,7 @@ const AddGoal = () => {
       />
       <AddModal toggleAdd={toggleAdd} isVisible={isVisible} />
     </>
-  );
-};
+  )
+}
 
-export default AddGoal;
+export default AddGoal

@@ -1,12 +1,12 @@
-import React from "react";
-import "./style.css";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import React from "react"
+import "./style.css"
+import { BrowserRouter, Route, Routes } from "react-router-dom"
 
 //components
-import Welcome from "./components/Welcome";
-import Dashboard from "./components/Dashboard";
-import Register from "./components/User/Register";
-import Login from "./components/User/Login";
+import Welcome from "./components/Welcome"
+import Dashboard from "./components/Dashboard"
+import Register from "./components/User/Register"
+import Login from "./components/User/Login"
 
 const App = () => {
   return (
@@ -18,7 +18,7 @@ const App = () => {
         <Route path="/dashboard" element={<Dashboard />} />
       </Routes>
     </BrowserRouter>
-  );
-};
+  )
+}
 
-export default App;
+export default App

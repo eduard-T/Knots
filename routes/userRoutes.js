@@ -1,13 +1,13 @@
-const express = require("express");
-const cors = require("cors");
-const bcrypt = require("bcrypt");
-const { body, validationResult } = require("express-validator");
-const pool = require("../db/connect");
-const { getToken, getAuthUser } = require("../util");
+const express = require("express")
+const cors = require("cors")
+const bcrypt = require("bcrypt")
+const { body, validationResult } = require("express-validator")
+const pool = require("../db/connect")
+const { getToken, getAuthUser } = require("../util")
 
-const router = express.Router();
+const router = express.Router()
 
-const saltRounds = 10;
+const saltRounds = 10
 
 //input verification
 const userInfoValidation = (action) => {
@@ -16,7 +16,7 @@ const userInfoValidation = (action) => {
       return [
         body("email", "Please enter your email").notEmpty(),
         body("password", "Please enter your password").notEmpty(),
-      ];
+      ]
     case "update":
       return [
         body("firstName", "Please enter a valid first name")
@@ -25,7 +25,7 @@ const userInfoValidation = (action) => {
         body("lastName", "Please enter a valid last name")
           .notEmpty()
           .isLength({ min: 2, max: 30 }),
-      ];
+      ]
     case "register":
       return [
         body("firstName", "Please enter a valid first name")
@@ -41,13 +41,13 @@ const userInfoValidation = (action) => {
           const duplicate = await pool.query(
             "SELECT email FROM users WHERE email = $1",
             [email]
-          );
+          )
 
           if (duplicate.rows && !!duplicate.rows.length) {
-            throw new Error("User already exists with this email!");
+            throw new Error("User already exists with this email!")
           }
 
-          return true;
+          return true
         }),
         body("password", "Password must be at least 8 characters")
           .exists()
@@ -59,15 +59,15 @@ const userInfoValidation = (action) => {
           .isLength({ min: 8 })
           .custom((confirm, { req }) => {
             if (confirm !== req.body.password) {
-              return;
+              return
             }
-            return true;
-          }),
-      ];
+            return true
+          })
+      ]
     default:
-      break;
+      break
   }
-};
+}
 
 // REGISTER NEW USER
 router.post(
@@ -75,15 +75,15 @@ router.post(
   cors(),
   userInfoValidation("register"),
   async (request, response) => {
-    const userInfo = request.body;
-    const errors = validationResult(request);
+    const userInfo = request.body
+    const errors = validationResult(request)
 
     if (!errors.isEmpty()) {
       //return all existing errors for each input
-      return response.status(401).send(errors.mapped());
+      return response.status(400).send(errors.mapped())
     } else {
       //encrypt password
-      const pwHash = await bcrypt.hash(userInfo.password, saltRounds);
+      const pwHash = await bcrypt.hash(userInfo.password, saltRounds)
 
       //insert the object into the users table
       const newUser = await pool
@@ -93,19 +93,19 @@ router.post(
         )
         .catch(() =>
           //if postgres query fails, return an error message
-          response.status(403).send({
+          response.status(500).send({
             registrationError: {
-              msg: "Internal registration error! Unable to add user",
-            },
+              msg: "Internal registration error! Unable to add user"
+            }
           })
-        );
+        )
 
       return response
         .status(200)
-        .send({ ...newUser.rows[0], token: getToken(newUser.rows[0]) });
+        .send({ ...newUser.rows[0], token: getToken(newUser.rows[0]) })
     }
   }
-);
+)
 
 // LOGIN USER
 router.post(
@@ -113,51 +113,51 @@ router.post(
   cors(),
   userInfoValidation("login"),
   async (request, response) => {
-    const { email, password } = request.body;
-    const errors = validationResult(request);
+    const { email, password } = request.body
+    const errors = validationResult(request)
 
     //find the user by email and assign it to a variable
     const userQuery = await pool.query("SELECT * FROM users WHERE email = $1", [
-      email.trim(),
-    ]);
+      email
+    ])
 
     if (!errors.isEmpty()) {
       //return all existing errors for each input
-      return response.status(401).send(errors.mapped());
+      return response.status(400).send(errors.mapped())
     }
 
     if (userQuery && !!userQuery.rows.length && password) {
       //deconstruct user info from query to separate password
-      const { password_hash, ...userInfo } = userQuery.rows[0];
+      const { password_hash, ...userInfo } = userQuery.rows[0]
 
       //compare provided password with stored password
       const passwordCheck = await bcrypt.compare(
-        password.trim(),
+        password,
         password_hash
-      );
+      )
 
       if (!passwordCheck) {
         //if password fails, return an error
-        return response.status(403).send({
+        return response.status(400).send({
           loginError: {
-            msg: "Login failed! Please check your credentials",
-          },
-        });
+            msg: "Login failed! Please check your credentials"
+          }
+        })
       }
 
       return response
         .status(200)
-        .send({ ...userInfo, token: getToken(userInfo) });
+        .send({ ...userInfo, token: getToken(userInfo) })
     } else {
       //if input does not match stored credentials, return an error
-      return response.status(403).send({
+      return response.status(400).send({
         loginError: {
-          msg: "Login failed! Please check your credentials",
-        },
-      });
+          msg: "Login failed! Please check your credentials"
+        }
+      })
     }
   }
-);
+)
 
 // UPDATE USER INFORMATION
 router.put(
@@ -166,13 +166,13 @@ router.put(
   userInfoValidation("update"),
   getAuthUser,
   async (request, response) => {
-    const authUser = request.user;
-    const { firstName, lastName } = request.body;
-    const errors = validationResult(request);
+    const authUser = request.user
+    const { firstName, lastName } = request.body
+    const errors = validationResult(request)
 
     if (!errors.isEmpty()) {
       //return all existing errors for each input
-      return response.status(401).send(errors.mapped());
+      return response.status(400).send(errors.mapped())
     } else {
       //update the user that matches id with the values provided
       const updateUser = await pool
@@ -182,35 +182,35 @@ router.put(
         )
         .catch(() => {
           //if postgres query fails, return an error message
-          return response.status(401).send({
+          return response.status(500).send({
             updateUserError: {
-              msg: "Failed to update the user information, please refresh your browser and try again",
-            },
-          });
-        });
+              msg: "Failed to update the user information, please refresh your browser and try again"
+            }
+          })
+        })
 
-      return response.status(200).send(updateUser.rows[0]);
+      return response.status(200).send(updateUser.rows[0])
     }
   }
-);
+)
 
 // DELETE USER
 router.delete("/delete", cors(), getAuthUser, async (request, response) => {
-  const authUser = request.user;
+  const authUser = request.user
 
   //delete the user from the table
   await pool
     .query("DELETE FROM users WHERE id = $1", [authUser.id])
     .catch(() => {
       //if postgres query fails, return an error message
-      return response.status(401).send({
+      return response.status(500).send({
         deleteUserError: {
-          msg: "Failed to delete the user, please refresh your browser and try again",
-        },
-      });
-    });
+          msg: "Failed to delete the user, please refresh your browser and try again"
+        }
+      })
+    })
 
-  response.status(200).end();
-});
+  response.status(200).end()
+})
 
-module.exports = router;
+module.exports = router

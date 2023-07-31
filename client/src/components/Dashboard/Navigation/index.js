@@ -1,24 +1,24 @@
-import React, { useState } from "react";
+import React, { useState } from "react"
 
 //components
-import IconButton from "../../StyledComponents/IconButton";
-import Modal from "../../StyledComponents/Modal";
-import Button from "../../StyledComponents/Button";
+import IconButton from "../../StyledComponents/IconButton"
+import Modal from "../../StyledComponents/Modal"
+import Button from "../../StyledComponents/Button"
 
 //redux
-import { useDispatch } from "react-redux";
-import { logoutUser } from "../../../features/user/userSlice";
+import { useDispatch } from "react-redux"
+import { logoutUser } from "../../../features/user/userSlice"
 
 const Navigation = ({ handleChange, activeTab }) => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
   //initialize state
-  const [isVisible, setIsVisible] = useState(false);
+  const [isVisible, setIsVisible] = useState(false)
 
   //handler to log the user out
   const handleLogout = () => {
-    dispatch(logoutUser());
-  };
+    dispatch(logoutUser())
+  }
 
   //array of navigation buttons
   const navButtons = [
@@ -26,27 +26,27 @@ const Navigation = ({ handleChange, activeTab }) => {
       source: "/assets/home.png",
       alt: "Home icon",
       handler: () => handleChange("home"),
-      active: activeTab === "home" ? true : false,
+      active: activeTab === "home" ? true : false
     },
     {
       source: "/assets/history.png",
       alt: "History icon",
       handler: () => handleChange("completed"),
-      active: activeTab === "completed" ? true : false,
+      active: activeTab === "completed" ? true : false
     },
     {
       source: "/assets/user.png",
       alt: "User icon",
       handler: () => handleChange("profile"),
-      active: activeTab === "profile" ? true : false,
+      active: activeTab === "profile" ? true : false
     },
     {
       source: "/assets/logout.png",
       alt: "Logout icon",
       handler: () => setIsVisible(true),
-      active: false,
+      active: false
     },
-  ];
+  ]
 
   return (
     <div className="navigation">
@@ -62,7 +62,7 @@ const Navigation = ({ handleChange, activeTab }) => {
             position="static"
             isActive={button.active}
           />
-        );
+        )
       })}
       <Modal isVisible={isVisible}>
         <h1 className="modal__title">Confirm Logout</h1>
@@ -76,7 +76,7 @@ const Navigation = ({ handleChange, activeTab }) => {
         </div>
       </Modal>
     </div>
-  );
-};
+  )
+}
 
-export default Navigation;
+export default Navigation

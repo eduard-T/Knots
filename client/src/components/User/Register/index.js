@@ -1,49 +1,49 @@
-import React, { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react"
+import { Link, useNavigate } from "react-router-dom"
 
 //redux
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux"
 import {
   registerUser,
   resetRegisterState,
-} from "../../../features/user/userSlice";
+} from "../../../features/user/userSlice"
 
 //components
-import Card from "../../StyledComponents/Card";
-import TextInput from "../../StyledComponents/TextInput";
-import Button from "../../StyledComponents/Button";
+import Card from "../../StyledComponents/Card"
+import TextInput from "../../StyledComponents/TextInput"
+import Button from "../../StyledComponents/Button"
 
 const Register = () => {
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
 
   //store
-  const { activeUser, registerState } = useSelector((state) => state.user);
+  const { activeUser, registerState } = useSelector((state) => state.user)
 
   //initialize states
-  const [userInfo, setUserInfo] = useState({});
-  const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [userInfo, setUserInfo] = useState({})
+  const [showPassword, setShowPassword] = useState(false)
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false)
 
   useEffect(() => {
     //if there is already an active user, navigate to the dashboard
     if (activeUser) {
-      navigate("/dashboard");
+      navigate("/dashboard")
     }
-  }, [activeUser, navigate]);
+  }, [activeUser, navigate])
 
   //listen for an enter key press to register
   useEffect(() => {
     const listener = (event) => {
       if (event.code === "Enter" || event.code === "NumpadEnter") {
-        handleRegister();
+        handleRegister()
       }
-    };
-    document.addEventListener("keydown", listener);
+    }
+    document.addEventListener("keydown", listener)
     return () => {
-      document.removeEventListener("keydown", listener);
-    };
-  });
+      document.removeEventListener("keydown", listener)
+    }
+  })
 
   //array of input fields
   const fields = [
@@ -51,19 +51,19 @@ const Register = () => {
       type: "text",
       name: "firstName",
       id: "firstName",
-      placeHolder: "First Name",
+      placeHolder: "First Name"
     },
     {
       type: "text",
       name: "lastName",
       id: "lastName",
-      placeHolder: "Last Name",
+      placeHolder: "Last Name"
     },
     {
       type: "email",
       name: "email",
       id: "email",
-      placeHolder: "Email",
+      placeHolder: "Email"
     },
     {
       type: showPassword ? "text" : "password",
@@ -71,7 +71,7 @@ const Register = () => {
       id: "password",
       placeHolder: "Password",
       inputIcon: showPassword ? "/assets/eye.png" : "/assets/closed-eye.png",
-      onIconClick: () => setShowPassword(!showPassword),
+      onIconClick: () => setShowPassword(!showPassword)
     },
     {
       type: showConfirmPassword ? "text" : "password",
@@ -81,26 +81,26 @@ const Register = () => {
       inputIcon: showConfirmPassword
         ? "/assets/eye.png"
         : "/assets/closed-eye.png",
-      onIconClick: () => setShowConfirmPassword(!showConfirmPassword),
-    },
-  ];
+      onIconClick: () => setShowConfirmPassword(!showConfirmPassword)
+    }
+  ]
 
   // dynamically add key value pairs to the input object
   const updateInput = (key, value) => {
-    let tempInput = { ...userInfo };
-    tempInput[key] = value;
-    setUserInfo(tempInput);
-  };
+    let tempInput = { ...userInfo }
+    tempInput[key] = value
+    setUserInfo(tempInput)
+  }
 
   //registration handler
   const handleRegister = () => {
-    dispatch(registerUser(userInfo));
-  };
+    dispatch(registerUser(userInfo))
+  }
 
   //handler to reset the registerState
   const handleStateReset = () => {
-    dispatch(resetRegisterState());
-  };
+    dispatch(resetRegisterState())
+  }
 
   return (
     <div
@@ -108,7 +108,7 @@ const Register = () => {
         display: "flex",
         minHeight: "100vh",
         justifyContent: "center",
-        alignItems: "center",
+        alignItems: "center"
       }}
     >
       <Card className="register__card" minHeight="400px">
@@ -140,7 +140,7 @@ const Register = () => {
                   }
                 />
               </div>
-            );
+            )
           })}
         </div>
         <Button title="Create Account" onClick={handleRegister} />
@@ -156,7 +156,7 @@ const Register = () => {
         </p>
       </Card>
     </div>
-  );
-};
+  )
+}
 
-export default Register;
+export default Register

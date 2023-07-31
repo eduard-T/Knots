@@ -1,4 +1,4 @@
-import React from "react";
+import React from "react"
 
 const Card = ({
   children,
@@ -8,7 +8,7 @@ const Card = ({
   maxHeight,
   className,
   removeShadow,
-  style,
+  style
 }) => {
   return (
     <div
@@ -24,12 +24,12 @@ const Card = ({
         boxShadow: removeShadow
           ? "none"
           : "0px 30px 85px -40px rgba(0,0,0,0.75)",
-        ...style,
+        ...style
       }}
     >
       {children}
     </div>
-  );
-};
+  )
+}
 
 export default Card;
