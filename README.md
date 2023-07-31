@@ -12,10 +12,11 @@ A goal tracking app that allows users to set and manage their tasks. Once regist
 
 ## Technologies Used
 
-Goal Tracker was built using React JS and [Node v14.18.1] and uses the following technologies:
+Goal Tracker was built using [Node v20.1.0] and uses the following technologies:
 
-- Express - v4.17.1
-- npm - v8.1.0
+- React - v18.2.0
+- Express - v4.18.2
+- npm - v9.6.4
 
 ## Features
 
@@ -35,7 +36,7 @@ Follow the steps below to get started with this project's development environmen
 $ npm install -g npm
 ```
 
-2. Install [Node 14.18.1](https://nodejs.org/en/download/)
+2. Install [Node 20.1.0](https://nodejs.org/en/download/)
 
 3. Clone this repository and navigate into it
 
