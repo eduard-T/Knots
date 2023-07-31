@@ -1,55 +1,55 @@
-import React, { useState, useEffect } from "react";
-import PuffLoader from "react-spinners/PuffLoader";
+import React, { useState, useEffect } from "react"
+import PuffLoader from "react-spinners/PuffLoader"
 
 //redux
-import { useDispatch, useSelector } from "react-redux";
-import { getGoals } from "../../../features/goals/goalsSlice";
-import { logoutUser } from "../../../features/user/userSlice";
+import { useDispatch, useSelector } from "react-redux"
+import { getGoals } from "../../../features/goals/goalsSlice"
+import { logoutUser } from "../../../features/user/userSlice"
 
 //components
-import Goal from "../Goal";
-import AddGoal from "../AddGoal";
+import Goal from "../Goal"
+import AddGoal from "../AddGoal"
 
 const Goals = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
   //store
-  const { activeUser } = useSelector((state) => state.user);
-  const { goalsList, status, error } = useSelector((state) => state.goals);
+  const { activeUser } = useSelector((state) => state.user)
+  const { goalsList, status, error } = useSelector((state) => state.goals)
 
   //initialize states
-  const [activeList, setActiveList] = useState([]);
-  const [errorMsg, setErrorMsg] = useState(null);
+  const [activeList, setActiveList] = useState([])
+  const [errorMsg, setErrorMsg] = useState(null)
 
   useEffect(() => {
     //once the user is active, fetch the goals based on their token
     if (activeUser) {
-      const { token } = activeUser;
-      dispatch(getGoals(token));
+      const { token } = activeUser
+      dispatch(getGoals(token))
     }
 
     //log the user out if the token fails on any action
     if (error && !!error.authError) {
-      dispatch(logoutUser());
+      dispatch(logoutUser())
     }
-  }, [activeUser, error, dispatch]);
+  }, [activeUser, error, dispatch])
 
   useEffect(() => {
     //initialize an empty array
-    setActiveList([]);
+    setActiveList([])
 
     //fill the array with active goals
     if (goalsList && !!goalsList.length) {
-      setActiveList(goalsList.filter((goal) => goal.completed === false));
+      setActiveList(goalsList.filter((goal) => goal.completed === false))
     }
-  }, [goalsList]);
+  }, [goalsList])
 
   useEffect(() => {
     //set the error message based on the active error
     if (!!error && Object.values(error)[0].msg) {
-      setErrorMsg(Object.values(error)[0].msg);
+      setErrorMsg(Object.values(error)[0].msg)
     }
-  }, [error]);
+  }, [error])
 
   return (
     <div className="dashboard__goals">
@@ -78,7 +78,7 @@ const Goals = () => {
                   description={goal.description}
                   timeline={goal.timeline}
                 />
-              );
+              )
             })
           ) : (
             <p className="dashboard__emptyMsg">No goals to complete...</p>
@@ -86,7 +86,7 @@ const Goals = () => {
         </ul>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default Goals;
+export default Goals

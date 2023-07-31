@@ -1,11 +1,11 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import React from "react"
+import { useNavigate } from "react-router-dom"
 
 //components
-import Button from "../StyledComponents/Button";
+import Button from "../StyledComponents/Button"
 
 const Welcome = () => {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   return (
     <div className="welcome">
@@ -16,7 +16,7 @@ const Welcome = () => {
       </header>
       <Button title="Enter" width="250px" onClick={() => navigate("/login")} />
     </div>
-  );
-};
+  )
+}
 
-export default Welcome;
+export default Welcome

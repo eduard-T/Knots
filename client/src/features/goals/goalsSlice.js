@@ -1,186 +1,186 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
+import axios from "axios"
 
 export const getGoals = createAsyncThunk(
   "goals/get",
   async (token, { rejectWithValue }) => {
     try {
       const response = await axios.get("/goals", {
-        headers: { Authorization: token },
-      });
-      return response.data;
+        headers: { Authorization: token }
+      })
+      return response.data
     } catch (error) {
-      return rejectWithValue(error.response.data);
+      return rejectWithValue(error.response.data)
     }
   }
-);
+)
 
 export const createGoal = createAsyncThunk(
   "goals/create",
   async (payload, { rejectWithValue, dispatch }) => {
     try {
-      const { token, description, timeline } = payload;
+      const { token, description, timeline } = payload
       await axios.post(
         "/goals/create",
         { description, timeline },
         {
-          headers: { Authorization: token },
+          headers: { Authorization: token }
         }
-      );
-      dispatch(getGoals(token));
-      return;
+      )
+      dispatch(getGoals(token))
+      return
     } catch (error) {
-      return rejectWithValue(error.response.data);
+      return rejectWithValue(error.response.data)
     }
   }
-);
+)
 
 export const updateGoal = createAsyncThunk(
   "goals/update",
   async (payload, { rejectWithValue, dispatch }) => {
     try {
-      const { token, goalID, description, timeline } = payload;
+      const { token, goalID, description, timeline } = payload
       await axios.put(
         `/goals/update/${goalID}`,
         { description, timeline },
         {
-          headers: { Authorization: token },
+          headers: { Authorization: token }
         }
-      );
-      dispatch(getGoals(token));
-      return;
+      )
+      dispatch(getGoals(token))
+      return
     } catch (error) {
-      return rejectWithValue(error.response.data);
+      return rejectWithValue(error.response.data)
     }
   }
-);
+)
 
 export const completeGoal = createAsyncThunk(
   "goals/complete",
   async (payload, { rejectWithValue, dispatch }) => {
     try {
-      const { token, goalID, completed } = payload;
+      const { token, goalID, completed } = payload
       await axios.put(
         `/goals/complete/${goalID}`,
         { completed },
         {
-          headers: { Authorization: token },
+          headers: { Authorization: token }
         }
-      );
-      dispatch(getGoals(token));
-      return;
+      )
+      dispatch(getGoals(token))
+      return
     } catch (error) {
-      return rejectWithValue(error.response.data);
+      return rejectWithValue(error.response.data)
     }
   }
-);
+)
 
 export const deleteGoal = createAsyncThunk(
   "goals/delete",
   async (payload, { rejectWithValue, dispatch }) => {
     try {
-      const { token, goalID } = payload;
+      const { token, goalID } = payload
       await axios.delete(`/goals/delete/${goalID}`, {
-        headers: { Authorization: token },
-      });
-      dispatch(getGoals(token));
-      return;
+        headers: { Authorization: token }
+      })
+      dispatch(getGoals(token))
+      return
     } catch (error) {
-      return rejectWithValue(error.response.data);
+      return rejectWithValue(error.response.data)
     }
   }
-);
+)
 
 const initialState = {
   goalsList: [],
   status: "idle",
-  error: null,
-};
+  error: null
+}
 
 const goalsSlice = createSlice({
   name: "goals",
   initialState,
   reducers: {
     resetGoalsState: (state) => {
-      state.goalsList = [];
-      state.status = "idle";
-      state.error = null;
-    },
+      state.goalsList = []
+      state.status = "idle"
+      state.error = null
+    }
   },
   extraReducers: (builder) => {
     builder
       //query reducers
       .addCase(getGoals.pending, (state) => {
         if (state.status === "idle") {
-          state.status = "pending";
+          state.status = "pending"
         }
       })
       .addCase(getGoals.fulfilled, (state, action) => {
         if (state.status === "pending") {
-          state.status = "idle";
-          state.goalsList = action.payload;
+          state.status = "idle"
+          state.goalsList = action.payload
         }
       })
       .addCase(getGoals.rejected, (state, action) => {
         if (state.status === "pending") {
-          state.status = "idle";
-          state.error = action.payload;
+          state.status = "idle"
+          state.error = action.payload
         }
       })
 
       //creation reducers
       .addCase(createGoal.pending, (state) => {
         if (state.status === "idle") {
-          state.status = "pending";
+          state.status = "pending"
         }
       })
       .addCase(createGoal.rejected, (state, action) => {
         if (state.status === "pending") {
-          state.status = "idle";
-          state.error = action.payload;
+          state.status = "idle"
+          state.error = action.payload
         }
       })
 
       //update reducers
       .addCase(updateGoal.pending, (state) => {
         if (state.status === "idle") {
-          state.status = "pending";
+          state.status = "pending"
         }
       })
       .addCase(updateGoal.rejected, (state, action) => {
         if (state.status === "pending") {
-          state.status = "idle";
-          state.error = action.payload;
+          state.status = "idle"
+          state.error = action.payload
         }
       })
 
       //completion reducers
       .addCase(completeGoal.pending, (state) => {
         if (state.status === "idle") {
-          state.status = "pending";
+          state.status = "pending"
         }
       })
       .addCase(completeGoal.rejected, (state, action) => {
         if (state.status === "pending") {
-          state.status = "idle";
-          state.error = action.payload;
+          state.status = "idle"
+          state.error = action.payload
         }
       })
 
       //deletion reducers
       .addCase(deleteGoal.pending, (state) => {
         if (state.status === "idle") {
-          state.status = "pending";
+          state.status = "pending"
         }
       })
       .addCase(deleteGoal.rejected, (state, action) => {
         if (state.status === "pending") {
-          state.status = "idle";
-          state.error = action.payload;
+          state.status = "idle"
+          state.error = action.payload
         }
-      });
+      })
   },
-});
+})
 
-export const { resetGoalsState } = goalsSlice.actions;
-export default goalsSlice.reducer;
+export const { resetGoalsState } = goalsSlice.actions
+export default goalsSlice.reducer

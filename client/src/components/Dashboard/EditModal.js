@@ -1,101 +1,101 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback } from "react"
 
 //redux
-import { useDispatch, useSelector } from "react-redux";
-import { updateGoal } from "../../features/goals/goalsSlice";
+import { useDispatch, useSelector } from "react-redux"
+import { updateGoal } from "../../features/goals/goalsSlice"
 
 //components
-import Modal from "../StyledComponents/Modal";
-import Button from "../StyledComponents/Button";
-import TextInput from "../StyledComponents/TextInput";
+import Modal from "../StyledComponents/Modal"
+import Button from "../StyledComponents/Button"
+import TextInput from "../StyledComponents/TextInput"
 
 const EditModal = ({
   toggleEdit,
   isVisible,
   goalID,
   currentDescription,
-  currentTimeline,
+  currentTimeline
 }) => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
   //store
-  const { activeUser } = useSelector((state) => state.user);
-  const { status } = useSelector((state) => state.goals);
+  const { activeUser } = useSelector((state) => state.user)
+  const { status } = useSelector((state) => state.goals)
 
   //initialize states
-  const [showInput, setShowInput] = useState(false);
-  const [error, setError] = useState(false);
-  const [description, setDescription] = useState(currentDescription);
-  const [goalTimeline, setGoalTimeline] = useState("");
-  const [goalDate, setGoalDate] = useState("");
+  const [showInput, setShowInput] = useState(false)
+  const [error, setError] = useState(false)
+  const [description, setDescription] = useState(currentDescription)
+  const [goalTimeline, setGoalTimeline] = useState("")
+  const [goalDate, setGoalDate] = useState("")
 
   //save the current date to a variable
-  const currentDate = new Date().toISOString().substring(0, 10);
+  const currentDate = new Date().toISOString().substring(0, 10)
 
   //set the inputs with the existing data
   useEffect(() => {
     if (currentTimeline.includes("-")) {
-      setGoalTimeline("setDate");
-      setShowInput(true);
-      setGoalDate(currentTimeline);
+      setGoalTimeline("setDate")
+      setShowInput(true)
+      setGoalDate(currentTimeline)
     } else {
-      setGoalTimeline(currentTimeline);
-      setGoalDate("");
+      setGoalTimeline(currentTimeline)
+      setGoalDate("")
     }
-  }, [currentTimeline, isVisible]);
+  }, [currentTimeline, isVisible])
 
   //function to clear and close modal
   const clear = useCallback(() => {
-    toggleEdit("close");
-    setError(false);
-    setDescription(currentDescription);
-    setShowInput(false);
-  }, [toggleEdit, currentDescription]);
+    toggleEdit("close")
+    setError(false)
+    setDescription(currentDescription)
+    setShowInput(false)
+  }, [toggleEdit, currentDescription])
 
   //option selection handler
   const handleOption = (option) => {
     //if the option is to select a date, show the date input
     if (option === "setDate") {
-      setShowInput(true);
-      setGoalTimeline(undefined);
+      setShowInput(true)
+      setGoalTimeline(undefined)
     } else {
-      setShowInput(false);
-      setGoalTimeline(option);
+      setShowInput(false)
+      setGoalTimeline(option)
     }
-  };
+  }
 
   //handler to dispatch the action based on the data and update the goal
   const handleUpdate = () => {
     if (!description && (!goalTimeline || !goalDate)) {
-      setError(true);
-      return;
+      setError(true)
+      return
     } else if (goalDate) {
       dispatch(
         updateGoal({
           token: activeUser.token,
           goalID,
           description,
-          timeline: goalDate,
+          timeline: goalDate
         })
-      );
+      )
     } else {
       dispatch(
         updateGoal({
           token: activeUser.token,
           goalID,
           description,
-          timeline: goalTimeline,
+          timeline: goalTimeline
         })
-      );
+      )
     }
-  };
+  }
 
   //clear the modal when the action changes the status to "pending"
   useEffect(() => {
     if (status === "pending") {
-      clear();
+      clear()
     }
-  }, [status, clear]);
+  }, [status, clear])
 
   return (
     <Modal isVisible={isVisible}>
@@ -152,7 +152,7 @@ const EditModal = ({
         <Button title="Cancel" onClick={clear} />
       </div>
     </Modal>
-  );
-};
+  )
+}
 
-export default EditModal;
+export default EditModal

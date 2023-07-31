@@ -1,35 +1,35 @@
-const express = require("express");
-const cors = require("cors");
-const path = require("path");
+const express = require("express")
+const cors = require("cors")
+const path = require("path")
 
 //routers
-const userRoutes = require("./routes/userRoutes");
-const goalRoutes = require("./routes/goalRoutes");
+const userRoutes = require("./routes/userRoutes")
+const goalRoutes = require("./routes/goalRoutes")
 
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT || 4000
 
-const api = express();
+const api = express()
 
 //middleware
-api.use(express.urlencoded({ extended: true }));
-api.use(express.json());
-api.use(cors());
+api.use(express.urlencoded({ extended: true }))
+api.use(express.json())
+api.use(cors())
 
 //routes
-api.use("/user", userRoutes);
-api.use("/goals", goalRoutes);
+api.use("/user", userRoutes)
+api.use("/goals", goalRoutes)
 
 //environment
 if (process.env.NODE_ENV === "production") {
-  api.use(express.static(path.join(__dirname, "client/build")));
+  api.use(express.static(path.join(__dirname, "client/build")))
 }
 
 //catch all function to redirect to the homepage if the path does not exist
 api.get("*", cors(), (request, response) => {
-  response.sendFile(path.join(__dirname, "client/build/index.html"));
-});
+  response.sendFile(path.join(__dirname, "client/build/index.html"))
+})
 
 // listen for API at the given port
 api.listen(PORT, () => {
-  console.log(`API running at PORT: ${PORT}`);
-});
+  console.log(`API running at PORT: ${PORT}`)
+})

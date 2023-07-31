@@ -1,7 +1,7 @@
-import React from "react";
+import React from "react"
 
 //components
-import IconButton from "./IconButton";
+import IconButton from "./IconButton"
 
 const TextInput = ({
   onChange,
@@ -16,7 +16,7 @@ const TextInput = ({
   width,
   borderWidth,
   borderType,
-  style,
+  style
 }) => {
   return (
     <div style={{ width: width || "100%", position: "relative" }}>
@@ -45,7 +45,7 @@ const TextInput = ({
           borderColor: "grey",
           borderStyle: borderType || "solid",
           borderWidth: borderWidth,
-          ...style,
+          ...style
         }}
         type={type}
         name={name}
@@ -55,7 +55,7 @@ const TextInput = ({
         onChange={onChange}
       />
     </div>
-  );
-};
+  )
+}
 
-export default TextInput;
+export default TextInput

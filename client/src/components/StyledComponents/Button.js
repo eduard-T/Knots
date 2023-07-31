@@ -1,4 +1,4 @@
-import React from "react";
+import React from "react"
 
 const Button = ({
   onClick,
@@ -8,7 +8,7 @@ const Button = ({
   backgroundColor,
   textColor,
   width,
-  style,
+  style
 }) => {
   return (
     <button
@@ -21,7 +21,7 @@ const Button = ({
         padding: "10px",
         borderRadius: "2px",
         width: width,
-        ...style,
+        ...style
       }}
       className="button"
       type={type}
@@ -30,7 +30,7 @@ const Button = ({
     >
       {title}
     </button>
-  );
-};
+  )
+}
 
-export default Button;
+export default Button

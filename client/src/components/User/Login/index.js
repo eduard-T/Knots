@@ -1,56 +1,56 @@
-import React, { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react"
+import { Link, useNavigate } from "react-router-dom"
 
 //redux
-import { useDispatch, useSelector } from "react-redux";
-import { loginUser, resetLoginState } from "../../../features/user/userSlice";
+import { useDispatch, useSelector } from "react-redux"
+import { loginUser, resetLoginState } from "../../../features/user/userSlice"
 
 //components
-import Card from "../../StyledComponents/Card";
-import TextInput from "../../StyledComponents/TextInput";
-import Button from "../../StyledComponents/Button";
+import Card from "../../StyledComponents/Card"
+import TextInput from "../../StyledComponents/TextInput"
+import Button from "../../StyledComponents/Button"
 
 const Login = () => {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   //store
-  const { activeUser, loginState } = useSelector((state) => state.user);
+  const { activeUser, loginState } = useSelector((state) => state.user)
 
   //initialize states
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+  const [showPassword, setShowPassword] = useState(false)
 
   useEffect(() => {
     //if there is already an active user, navigate to the dashboard
     if (activeUser) {
-      navigate("/dashboard");
+      navigate("/dashboard")
     }
-  }, [activeUser, navigate]);
+  }, [activeUser, navigate])
 
   //listen for an enter key press to login
   useEffect(() => {
     const listener = (event) => {
       if (event.code === "Enter" || event.code === "NumpadEnter") {
-        handleLogin();
+        handleLogin()
       }
-    };
-    document.addEventListener("keydown", listener);
+    }
+    document.addEventListener("keydown", listener)
     return () => {
-      document.removeEventListener("keydown", listener);
-    };
-  });
+      document.removeEventListener("keydown", listener)
+    }
+  })
 
   //login handler
   const handleLogin = () => {
-    dispatch(loginUser({ email, password }));
-  };
+    dispatch(loginUser({ email, password }))
+  }
 
   //handler to reset the loginState
   const handleStateReset = () => {
-    dispatch(resetLoginState());
-  };
+    dispatch(resetLoginState())
+  }
 
   return (
     <div
@@ -58,7 +58,7 @@ const Login = () => {
         display: "flex",
         minHeight: "100vh",
         justifyContent: "center",
-        alignItems: "center",
+        alignItems: "center"
       }}
     >
       <Card className="login__card">
@@ -111,10 +111,9 @@ const Login = () => {
             Register
           </Link>
         </p>
-        {/* <p className="login__link">Forgot Password</p> */}
       </Card>
     </div>
-  );
-};
+  )
+}
 
-export default Login;
+export default Login

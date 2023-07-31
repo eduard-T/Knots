@@ -1,4 +1,4 @@
-import React from "react";
+import React from "react"
 
 const IconButton = ({
   source,
@@ -12,7 +12,7 @@ const IconButton = ({
   right,
   onClick,
   isActive,
-  style,
+  style
 }) => {
   return (
     <>
@@ -30,14 +30,14 @@ const IconButton = ({
           right: right || null,
           boxSizing: "content-box",
           borderBottom: `2px solid ${isActive ? "orangered" : "transparent"}`,
-          ...style,
+          ...style
         }}
         src={source}
         alt={alt}
         onClick={onClick}
       />
     </>
-  );
-};
+  )
+}
 
-export default IconButton;
+export default IconButton

@@ -1,34 +1,34 @@
-import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react"
+import { useSelector } from "react-redux"
+import { useNavigate } from "react-router-dom"
 
 //components
-import Card from "../StyledComponents/Card";
-import Goals from "./Screens/Goals";
-import Completed from "./Screens/Completed";
-import Profile from "./Screens/Profile";
-import Navigation from "./Navigation";
+import Card from "../StyledComponents/Card"
+import Goals from "./Screens/Goals"
+import Completed from "./Screens/Completed"
+import Profile from "./Screens/Profile"
+import Navigation from "./Navigation"
 
 const Dashboard = () => {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   //store
-  const { activeUser } = useSelector((state) => state.user);
+  const { activeUser } = useSelector((state) => state.user)
 
   //initialize states
-  const [tab, setTab] = useState("home");
+  const [tab, setTab] = useState("home")
 
   useEffect(() => {
     //if there is no active user, navigate to the login page
     if (!activeUser) {
-      navigate("/login");
+      navigate("/login")
     }
-  }, [activeUser, navigate]);
+  }, [activeUser, navigate])
 
   //handler to switch between tabs
   const handleChange = (tab) => {
-    setTab(tab);
-  };
+    setTab(tab)
+  }
 
   return (
     <div className="dashboard">
@@ -47,7 +47,7 @@ const Dashboard = () => {
         </Card>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default Dashboard;
+export default Dashboard

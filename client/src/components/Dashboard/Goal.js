@@ -1,67 +1,67 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react"
 
 //redux
-import { useDispatch, useSelector } from "react-redux";
-import { completeGoal, deleteGoal } from "../../features/goals/goalsSlice";
+import { useDispatch, useSelector } from "react-redux"
+import { completeGoal, deleteGoal } from "../../features/goals/goalsSlice"
 
 //components
-import IconButton from "../StyledComponents/IconButton";
-import EditModal from "./EditModal";
+import IconButton from "../StyledComponents/IconButton"
+import EditModal from "./EditModal"
 
 const Goal = ({ goalID, description, timeline, completed }) => {
-  const dispatch = useDispatch();
-  const itemRef = useRef(null);
+  const dispatch = useDispatch()
+  const itemRef = useRef(null)
 
   //store
-  const { activeUser } = useSelector((state) => state.user);
+  const { activeUser } = useSelector((state) => state.user)
 
   //initialize states
-  const [showMenu, setShowMenu] = useState(false);
-  const [isVisible, setIsVisible] = useState(false);
+  const [showMenu, setShowMenu] = useState(false)
+  const [isVisible, setIsVisible] = useState(false)
 
   //menu handler
   const handleMenu = () => {
-    setShowMenu(true);
-  };
+    setShowMenu(true)
+  }
 
   // toggle function to open and close the modal
   const toggleEdit = (state) => {
     if (state === "open") {
-      setIsVisible(true);
+      setIsVisible(true)
     }
 
     if (state === "close") {
-      setIsVisible(false);
+      setIsVisible(false)
     }
-  };
+  }
 
   // handler for the menu actions
   const handleAction = (action) => {
     if (action === "complete" && !completed) {
       dispatch(
         completeGoal({ token: activeUser.token, goalID, completed: true })
-      );
+      )
     }
 
     if (action === "delete") {
-      dispatch(deleteGoal({ token: activeUser.token, goalID }));
+      dispatch(deleteGoal({ token: activeUser.token, goalID }))
     }
-  };
+  }
 
   //click event listener
   useEffect(() => {
-    document.addEventListener("click", handleClickOutside, false);
+    document.addEventListener("click", handleClickOutside, false)
     return () => {
-      document.removeEventListener("click", handleClickOutside, false);
-    };
-  }, []);
+      document.removeEventListener("click", handleClickOutside, false)
+    }
+  }, [])
 
   //hide the menu on any click outside of the element
   const handleClickOutside = (event) => {
     if (itemRef.current && !itemRef.current.contains(event.target)) {
-      setShowMenu(false);
+      setShowMenu(false)
     }
-  };
+  }
 
   return (
     <>
@@ -90,7 +90,7 @@ const Goal = ({ goalID, description, timeline, completed }) => {
                   ? "rgb(102, 102, 255)"
                   : timeline === "Short Term"
                   ? "limegreen"
-                  : "rgb(166, 166, 166)",
+                  : "rgb(166, 166, 166)"
             }}
           >
             {timeline}
@@ -141,7 +141,7 @@ const Goal = ({ goalID, description, timeline, completed }) => {
         currentTimeline={timeline}
       />
     </>
-  );
-};
+  )
+}
 
-export default Goal;
+export default Goal

@@ -1,60 +1,60 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react"
 
 //redux
-import { useDispatch, useSelector } from "react-redux";
-import { updateUser, deleteUser } from "../../../features/user/userSlice";
+import { useDispatch, useSelector } from "react-redux"
+import { updateUser, deleteUser } from "../../../features/user/userSlice"
 
 //components
-import Modal from "../../StyledComponents/Modal";
-import Button from "../../StyledComponents/Button";
-import TextInput from "../../StyledComponents/TextInput";
+import Modal from "../../StyledComponents/Modal"
+import Button from "../../StyledComponents/Button"
+import TextInput from "../../StyledComponents/TextInput"
 
 //helpers
-import useWindowDimensions from "../../../helpers/ScreenDimensions";
+import useWindowDimensions from "../../../helpers/ScreenDimensions"
 
 const Profile = ({ activeUser }) => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
   //get the width of the current window
-  const { width } = useWindowDimensions();
+  const { width } = useWindowDimensions()
 
   //store
-  const { userState } = useSelector((state) => state.user);
-  const { goalsList } = useSelector((state) => state.goals);
+  const { userState } = useSelector((state) => state.user)
+  const { goalsList } = useSelector((state) => state.goals)
 
   //initialize states
-  const [firstName, setFirstName] = useState(activeUser.first_name);
-  const [lastName, setLastName] = useState(activeUser.last_name);
-  const [isEditing, setIsEditing] = useState(false);
-  const [isVisible, setIsVisible] = useState(false);
+  const [firstName, setFirstName] = useState(activeUser.first_name)
+  const [lastName, setLastName] = useState(activeUser.last_name)
+  const [isEditing, setIsEditing] = useState(false)
+  const [isVisible, setIsVisible] = useState(false)
 
   //initialize goal amounts
-  const [activeGoals, setActiveGoals] = useState(0);
-  const [completedGoals, setCompletedGoals] = useState(0);
+  const [activeGoals, setActiveGoals] = useState(0)
+  const [completedGoals, setCompletedGoals] = useState(0)
 
   //exit editing state when the action changes the loading state to "pending"
   useEffect(() => {
     if (userState.loading === "pending") {
-      setIsEditing(false);
+      setIsEditing(false)
     }
-  }, [userState]);
+  }, [userState])
 
   //set the goal amounts from the user's goal list
   useEffect(() => {
     if (goalsList && !!goalsList.length) {
       setActiveGoals(
         goalsList.filter((goal) => goal.completed === false).length
-      );
+      )
       setCompletedGoals(
         goalsList.filter((goal) => goal.completed === true).length
-      );
+      )
     }
-  }, [goalsList]);
+  }, [goalsList])
 
   //toggle function for the editing state
   const toggleEdit = () => {
-    setIsEditing(!isEditing);
-  };
+    setIsEditing(!isEditing)
+  }
 
   //handler to dispatch the action to update the user
   const handleSave = () => {
@@ -62,15 +62,15 @@ const Profile = ({ activeUser }) => {
       updateUser({
         token: activeUser.token,
         firstName,
-        lastName,
+        lastName
       })
-    );
-  };
+    )
+  }
 
   //handler to delete the user's account
   const handleDelete = () => {
-    dispatch(deleteUser({ token: activeUser.token }));
-  };
+    dispatch(deleteUser({ token: activeUser.token }))
+  }
 
   return (
     <div className="dashboard__profile">
@@ -209,7 +209,7 @@ const Profile = ({ activeUser }) => {
         </div>
       </Modal>
     </div>
-  );
-};
+  )
+}
 
-export default Profile;
+export default Profile
