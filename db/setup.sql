@@ -1,4 +1,4 @@
--- CREATE DATABASE goal_tracker;
+CREATE DATABASE goal_tracker;
 
 CREATE TABLE users(
   id BIGSERIAL PRIMARY KEY,
@@ -6,7 +6,7 @@ CREATE TABLE users(
   last_name VARCHAR(30) NOT NULL,
   email TEXT NOT NULL UNIQUE,
   password_hash VARCHAR(255) NOT NULL
-)
+);
 
 CREATE TABLE goals(
   gid BIGSERIAL PRIMARY KEY,
@@ -15,4 +15,4 @@ CREATE TABLE goals(
   timeline VARCHAR(10) NOT NULL,
   description VARCHAR(50) NOT NULL,
   completed BOOLEAN
-)
+);
