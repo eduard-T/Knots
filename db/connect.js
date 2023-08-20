@@ -17,7 +17,7 @@ const prodConfig = {
 }
 
 const pool = new Pool(
-  process.env.NODE_ENV === "prod" ? prodConfig : devConfig
+  process.env.NODE_ENV === "production" ? prodConfig : devConfig
 )
 
 module.exports = pool
