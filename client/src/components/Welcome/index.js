@@ -12,7 +12,7 @@ const Welcome = () => {
       <header className="welcome__header">
         <p className="welcome__title">Knots</p>
         <p className="welcome__filler">:::</p>
-        <p className="welcome__description">Goal Management App</p>
+        <p className="welcome__description">Goal Manager</p>
       </header>
       <Button title="Enter" width="250px" onClick={() => navigate("/login")} />
     </div>
